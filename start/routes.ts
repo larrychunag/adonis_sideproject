@@ -19,6 +19,9 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import './routes/admin/restaurant'
+import './routes/admin/categories'
+import './routes/admin/products'
 
 Route.get('/', async () => {
   return { hello: 'world' }
