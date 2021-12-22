@@ -1,7 +1,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.resource('restaurants', 'RestaurantsController').apiOnly()
+  Route.resource('restaurants', 'RestaurantsController').apiOnly().as('restaurantsAdmin')
 })
   .prefix('/admin')
   .prefix('/v1')
