@@ -7,3 +7,4 @@ Route.group(() => {
   .prefix('/v1')
   .prefix('/api')
   .as('api')
+  .namespace('App/Controllers/Http/Admin')

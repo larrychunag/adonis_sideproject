@@ -22,9 +22,9 @@ import Route from '@ioc:Adonis/Core/Route'
 import './routes/admin/restaurant'
 import './routes/admin/categories'
 import './routes/admin/products'
-import './routes/web/restaurant'
-import './routes/web/categories'
-import './routes/web/products'
+// import './routes/web/restaurant'
+// import './routes/web/categories'
+// import './routes/web/products'
 
 Route.get('/', async () => {
   return { hello: 'world' }
