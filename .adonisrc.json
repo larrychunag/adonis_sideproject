@@ -14,24 +14,7 @@
     "Database": "database",
     "Contracts": "contracts"
   },
-<<<<<<< HEAD
   "preloads": ["./start/routes", "./start/kernel"],
   "providers": ["./providers/AppProvider", "@adonisjs/core", "@adonisjs/lucid", "adonis5-swagger"],
   "aceProviders": ["@adonisjs/repl"]
 }
-=======
-  "preloads": [
-    "./start/routes",
-    "./start/kernel"
-  ],
-  "providers": [
-    "./providers/AppProvider",
-    "@adonisjs/core",
-    "@adonisjs/lucid",
-    "adonis5-swagger"
-  ],
-  "aceProviders": [
-    "@adonisjs/repl"
-  ]
-}
->>>>>>> development
