@@ -23,5 +23,5 @@ export default class Category extends BaseModel {
   public products: HasMany<typeof Product>
 
   @belongsTo(() => Restaurant)
-  public Restaurant: BelongsTo<typeof Restaurant>
+  public restaurant: BelongsTo<typeof Restaurant>
 }

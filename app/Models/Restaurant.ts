@@ -6,6 +6,9 @@ export default class Restaurant extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public name: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -13,5 +16,5 @@ export default class Restaurant extends BaseModel {
   public updatedAt: DateTime
 
   @hasMany(() => Category)
-  public posts: HasMany<typeof Category>
+  public category: HasMany<typeof Category>
 }
