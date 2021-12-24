@@ -19,6 +19,6 @@ test.group('Restaurant', () => {
     await request.put('/api/v1/admin/restaurants/1').expect(200)
   })
   test('delete restaurant', async () => {
-    await request.put('/api/v1/admin/restaurants/1').expect(200)
+    await request.delete('/api/v1/admin/restaurants/1').expect(200)
   })
 })
