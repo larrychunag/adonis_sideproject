@@ -1,5 +1,5 @@
 import test from 'japa'
-import { RestaurantFactory } from '../../database/factories/restaurant'
+import { RestaurantFactory } from 'Database/factories/restaurant'
 import supertest from 'supertest'
 import Database from '@ioc:Adonis/Lucid/Database'
 
