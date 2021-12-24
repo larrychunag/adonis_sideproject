@@ -16,5 +16,5 @@ export default class Restaurant extends BaseModel {
   public updatedAt: DateTime
 
   @hasMany(() => Category)
-  public category: HasMany<typeof Category>
+  public categories: HasMany<typeof Category>
 }
