@@ -1,4 +1,4 @@
-# adonis_sideproject
+# adonis_api
 ## 説明
 メニューのRestful API　Node.jsをチーム開発する。
 ### 構成
