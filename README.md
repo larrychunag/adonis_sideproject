@@ -10,3 +10,5 @@
 Framework:[Adonis.js](https://adonisjs.com/) 
 
 Test:[SuperTest](https://github.com/visionmedia/supertest)
+
+CI:ESlint,prettier
