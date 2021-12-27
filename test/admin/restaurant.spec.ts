@@ -16,12 +16,19 @@ test.group('Restaurant', (group) => {
   test('create restaurant data', async () => {
     await RestaurantFactory.create()
   })
-
   test('restaurant get all', async () => {
-    await request.get('/restaurants').expect(200)
+    await request.get('/admin/restaurants').expect(200)
   })
-
   test('restaurant get single restaurant', async () => {
-    await request.get('/restaurants/1').expect(200)
+    await request.get('/admin/restaurants/1').expect(200)
+  })
+  test('create restaurant', async () => {
+    await request.post('/admin/restaurants').expect(200)
+  })
+  test('update restaurant', async () => {
+    await request.put('/admin/restaurants/1').expect(200)
+  })
+  test('delete restaurant', async () => {
+    await request.delete('/admin/restaurants/1').expect(200)
   })
 })
