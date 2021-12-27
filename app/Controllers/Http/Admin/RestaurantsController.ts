@@ -17,9 +17,7 @@ export default class RestaurantsController {
 
   public async show({ params }: HttpContextContract) {
     const restaurant = await Restaurant.findOrFail(params.id)
-    if (restaurant) {
-      return restaurant.$original
-    }
+    return restaurant.$original
   }
 
   public async update({ request, params }: HttpContextContract) {
