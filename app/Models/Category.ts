@@ -13,6 +13,9 @@ export default class Category extends BaseModel {
   @column()
   public name: string
 
+  @column()
+  public status: 'public' | 'delete'
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

@@ -21,6 +21,9 @@ export default class Product extends BaseModel {
   @column()
   public allergen: JSON
 
+  @column()
+  public status: 'public' | 'delete'
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
