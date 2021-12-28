@@ -22,7 +22,7 @@ export default class Product extends BaseModel {
   public allergen: JSON
 
   @column()
-  public status: 'public' | 'delete'
+  public status: 'public' | 'deleted'
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

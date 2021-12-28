@@ -2,37 +2,76 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Restaurant from 'App/Models/Restaurant'
 
 export default class RestaurantsController {
-  public async index({}: HttpContextContract) {
-    const restaurants = await Restaurant.all()
-    return restaurants
-  }
-
-  public async store({ request }: HttpContextContract) {
-    const input = request.body()
-    if (input.name !== '') {
-      const restaurant = await Restaurant.create(input)
-      return restaurant
+  public async index({ response }: HttpContextContract) {
+    try {
+      await Restaurant.query()
+        .where('status', 'public')
+        .then((data) => {
+          response.status(200).json(data)
+        })
+    } catch (error) {
+      response.status(500)
     }
   }
 
-  public async show({ params }: HttpContextContract) {
-    const restaurant = await Restaurant.findOrFail(params.id)
-    return restaurant.$original
-  }
-
-  public async update({ request, params }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     const input = request.body()
-    const restaurant = await Restaurant.findOrFail(params.id)
-    if (input.name !== '') {
-      restaurant.merge(input)
-      await restaurant.save()
+    try {
+      if (input.name !== null && input.status === 'public') {
+        await Restaurant.create(input).then((data) => {
+          response.status(200).json(data)
+        })
+      } else {
+        response.send('フォームに空欄があります。')
+      }
+    } catch (error) {
+      response.status(500)
     }
-    return restaurant
   }
 
-  public async destroy({ params }: HttpContextContract) {
-    const restaurant = await Restaurant.findOrFail(params.id)
-    await restaurant.delete()
-    return 'success'
+  public async show({ params, response }: HttpContextContract) {
+    const { id } = params
+    try {
+      await Restaurant.query()
+        .where('id', id)
+        .where('status', 'public')
+        .then((data) => {
+          response.status(200).json(data)
+        })
+    } catch (error) {
+      response.status(200)
+    }
+  }
+
+  public async update({ request, response, params }: HttpContextContract) {
+    const { id } = params
+    const input = request.body()
+    try {
+      await Restaurant.findOrFail(id).then((data) => {
+        if (input.name !== null && input.status === 'public') {
+          data.merge(input).save()
+          response.status(200).json(data)
+        } else {
+          response.send('フォームに空欄があります。')
+        }
+      })
+    } catch (error) {
+      response.status(500)
+    }
+  }
+
+  public async destroy({ request, response, params }: HttpContextContract) {
+    const { id } = params
+    const input = request.body()
+    try {
+      if (input.status === 'deleted') {
+        await Restaurant.findOrFail(id).then((data) => {
+          data.merge(input).save()
+          response.status(200).json(data)
+        })
+      }
+    } catch (error) {
+      response.status(500)
+    }
   }
 }
