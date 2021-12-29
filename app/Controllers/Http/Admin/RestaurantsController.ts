@@ -10,22 +10,25 @@ export default class RestaurantsController {
           response.status(200).json(data)
         })
     } catch (error) {
-      response.status(500)
+      response.status(500).json({ error: error.message })
     }
   }
 
   public async store({ request, response }: HttpContextContract) {
     const input = request.body()
+    console.log(input)
+    if (input.name === '') {
+      return response.status(400).json({ error: '名前が空欄です' })
+    }
+    if (input.status !== 'public') {
+      return response.status(400).json({ error: 'statusがpublicではありません。' })
+    }
+
     try {
-      if (input.name !== null && input.status === 'public') {
-        await Restaurant.create(input).then((data) => {
-          response.status(200).json(data)
-        })
-      } else {
-        response.send('フォームに空欄があります。')
-      }
+      const restaurant = await Restaurant.create(input)
+      response.status(200).json(restaurant)
     } catch (error) {
-      response.status(500)
+      response.status(500).json({ error: error.message })
     }
   }
 
@@ -39,39 +42,36 @@ export default class RestaurantsController {
           response.status(200).json(data)
         })
     } catch (error) {
-      response.status(200)
+      response.status(500).json({ error: error.message })
     }
   }
 
   public async update({ request, response, params }: HttpContextContract) {
     const { id } = params
     const input = request.body()
+    if (input.name === '') {
+      return response.status(400).json({ error: '名前が空欄です' })
+    }
+    if (input.status !== 'public') {
+      return response.status(400).json({ error: 'statusがpublicではありません。' })
+    }
     try {
-      await Restaurant.findOrFail(id).then((data) => {
-        if (input.name !== null && input.status === 'public') {
-          data.merge(input).save()
-          response.status(200).json(data)
-        } else {
-          response.send('フォームに空欄があります。')
-        }
-      })
+      const restaurant = await Restaurant.findOrFail(id)
+      restaurant.merge(input).save()
+      response.status(200).json(restaurant)
     } catch (error) {
-      response.status(500)
+      response.status(500).json({ error: error.message })
     }
   }
 
-  public async destroy({ request, response, params }: HttpContextContract) {
+  public async destroy({ response, params }: HttpContextContract) {
     const { id } = params
-    const input = request.body()
     try {
-      if (input.status === 'deleted') {
-        await Restaurant.findOrFail(id).then((data) => {
-          data.merge(input).save()
-          response.status(200).json(data)
-        })
-      }
+      const restaurant = await Restaurant.findOrFail(id)
+      restaurant.merge({ status: 'deleted' }).save()
+      response.status(200).json(restaurant)
     } catch (error) {
-      response.status(500)
+      response.status(500).json({ error: error.message })
     }
   }
 }
