@@ -4,6 +4,8 @@ import { BaseModel, column, hasMany, HasMany, belongsTo, BelongsTo } from '@ioc:
 import Restaurant from './Restaurant'
 
 export default class Category extends BaseModel {
+  public static selfAssignPrimaryKey = true
+
   @column({ isPrimary: true })
   public id: number
 
