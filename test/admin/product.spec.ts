@@ -15,11 +15,12 @@ test.group('Product', (group) => {
   })
 
   test('Create Product Datas', async () => {
-    await RestaurantFactory.with('categories', 2, (category) =>
-      category.with('products', 5)
-    ).create()
+    await RestaurantFactory.merge([{ id: 2 }])
+      .with('categories', 2, (category) =>
+        category.merge([{ id: 3 }, { id: 4 }]).with('products', 5)
+      )
+      .create()
   })
-
   test('Check products summary endpoint', async () => {
     await supertest(BASE_URL).get('/admin/products').expect(200)
   })
